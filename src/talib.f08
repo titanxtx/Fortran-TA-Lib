@@ -339,13 +339,12 @@ module talib
             real(kind=c_double),intent(out)::outReal(*)
         end function TA_MAX
         integer(kind=c_int) function TA_MAXINDEX(startIdx,endIdx,inReal,optInTimePeriod,&
-        outBegIdx,outNbElement,outReal)&
+        outBegIdx,outNbElement,outInteger)&
         result(retCode) bind(C,name="TA_MAXINDEX")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            real(kind=c_double),intent(out)::outReal(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_MAXINDEX
         integer(kind=c_int) function TA_MIN(startIdx,endIdx,inReal,optInTimePeriod,&
         outBegIdx,outNbElement,outReal)&
@@ -357,31 +356,29 @@ module talib
             real(kind=c_double),intent(out)::outReal(*)
         end function TA_MIN
         integer(kind=c_int) function TA_MININDEX(startIdx,endIdx,inReal,optInTimePeriod,&
-        outBegIdx,outNbElement,outReal)&
+        outBegIdx,outNbElement,outInteger)&
         result(retCode) bind(C,name="TA_MININDEX")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            real(kind=c_double),intent(out)::outReal(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_MININDEX
         integer(kind=c_int) function TA_MINMAX(startIdx,endIdx,inReal,optInTimePeriod,&
-        outBegIdx,outNbElement,outReal)&
+        outBegIdx,outNbElement,outMin,outMax)&
         result(retCode) bind(C,name="TA_MINMAX")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal(*)
             integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            real(kind=c_double),intent(out)::outReal(*)
+            real(kind=c_double),intent(out)::outMin(*),outMax(*)
         end function TA_MINMAX
         integer(kind=c_int) function TA_MINMAXINDEX(startIdx,endIdx,inReal,optInTimePeriod,&
-        outBegIdx,outNbElement,outReal)&
+        outBegIdx,outNbElement,outMinIdx,outMaxIdx)&
         result(retCode) bind(C,name="TA_MINMAXINDEX")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            real(kind=c_double),intent(out)::outReal(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outMinIdx(*),outMaxIdx(*)
         end function TA_MINMAXINDEX
         integer(kind=c_int) function TA_MULT(startIdx,endIdx,inReal0,inReal1,&
         outBegIdx,outNbElement,outReal)&
@@ -551,14 +548,15 @@ module talib
         
     !Group: Overlap Studies
 
-        integer(kind=c_int) function TA_BBANDS(startIdx,endIdx,inReal,optInTimePeriod,optInNbDevUp,optInNbDevDn,optInMAType,&
-        outBegIdx,outNbElement,outReal) result(retCode) bind(C,name="TA_BBANDS")
+        integer(kind=c_int) function TA_BBANDS(startIdx,endIdx,inReal,optInTimePeriod,optInNbDevUp,&
+        optInNbDevDn,optInMAType,outBegIdx,outNbElement,outRealUpperBand,outRealMiddleBand,outRealLowerBand)& 
+        result(retCode) bind(C,name="TA_BBANDS")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod,optInMAType
             real(kind=c_double),intent(in),value::optInNbDevUp,optInNbDevDn
             real(kind=c_double),intent(in)::inReal(*)
             integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            real(kind=c_double),intent(out)::outReal(*)
+            real(kind=c_double),intent(out)::outRealUpperBand(*),outRealMiddleBand(*),outRealLowerBand(*)
         end function TA_BBANDS
         integer(kind=c_int) function TA_DEMA(startIdx,endIdx,inReal,optInTimePeriod,outBegIdx,outNbElement,outReal)&
         result(retCode) bind(C,name="TA_DEMA")
@@ -601,14 +599,15 @@ module talib
             integer(kind=c_int),intent(out)::outBegIdx,outNbElement
             real(kind=c_double),intent(out)::outReal(*)
         end function TA_MA
-        integer(kind=c_int) function TA_MAMA(startIdx,endIdx,inReal,optInFastLimit,optInSlowLimit,outBegIdx,outNbElement,outReal)&
+        integer(kind=c_int) function TA_MAMA(startIdx,endIdx,inReal,optInFastLimit,optInSlowLimit,&
+        outBegIdx,outNbElement,outMAMA,outFAMA)&
         result(retCode) bind(C,name="TA_MAMA")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in),value::optInFastLimit,optInSlowLimit
             real(kind=c_double),intent(in)::inReal(*)
             integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            real(kind=c_double),intent(out)::outReal(*)
+            real(kind=c_double),intent(out)::outMAMA(*),outFAMA(*)
         end function TA_MAMA
         integer(kind=c_int) function TA_MAVP(startIdx,endIdx,inReal,inPeriods,optInMinPeriod,optInMaxPeriod,&
         optInMAType,outBegIdx,outNbElement,outReal) result(retCode) bind(C,name="TA_MAVP")
@@ -1033,8 +1032,7 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_HT_TRENDMODE
 
     !Group: Volume Indicators
@@ -1071,56 +1069,49 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDL2CROWS
         integer(kind=c_int) function TA_CDL3BLACKCROWS(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDL3BLACKCROWS")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDL3BLACKCROWS
         integer(kind=c_int) function TA_CDL3INSIDE(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDL3INSIDE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDL3INSIDE
         integer(kind=c_int) function TA_CDL3LINESTRIKE(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDL3LINESTRIKE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDL3LINESTRIKE
         integer(kind=c_int) function TA_CDL3OUTSIDE(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDL3OUTSIDE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDL3OUTSIDE
         integer(kind=c_int) function TA_CDL3STARSINSOUTH(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDL3STARSINSOUTH")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDL3STARSINSOUTH
         integer(kind=c_int) function TA_CDL3WHITESOLDIERS(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDL3WHITESOLDIERS")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDL3WHITESOLDIERS
         integer(kind=c_int) function TA_CDLABANDONEDBABY(startIdx,endIdx,open,high,low,close,optInPenetration,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLABANDONEDBABY")
@@ -1128,8 +1119,7 @@ module talib
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in),value::optInPenetration
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLABANDONEDBABY
 
         integer(kind=c_int) function TA_CDLADVANCEBLOCK(startIdx,endIdx,open,high,low,close,&
@@ -1137,48 +1127,42 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLADVANCEBLOCK
         integer(kind=c_int) function TA_CDLBELTHOLD(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLBELTHOLD")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLBELTHOLD
         integer(kind=c_int) function TA_CDLBREAKAWAY(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLBREAKAWAY")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLBREAKAWAY
         integer(kind=c_int) function TA_CDLCLOSINGMARUBOZU(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLCLOSINGMARUBOZU")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLCLOSINGMARUBOZU
         integer(kind=c_int) function TA_CDLCONCEALBABYSWALL(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLCONCEALBABYSWALL")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLCONCEALBABYSWALL
         integer(kind=c_int) function TA_CDLCOUNTERATTACK(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLCOUNTERATTACK")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLCOUNTERATTACK
         integer(kind=c_int) function TA_CDLDARKCLOUDCOVER(startIdx,endIdx,open,high,low,close,optInPenetration,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLDARKCLOUDCOVER")
@@ -1186,24 +1170,21 @@ module talib
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in),value::optInPenetration
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLDARKCLOUDCOVER
         integer(kind=c_int) function TA_CDLDOJI(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLDOJI")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLDOJI
         integer(kind=c_int) function TA_CDLDOJISTAR(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLDOJISTAR")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLDOJISTAR
 
         integer(kind=c_int) function TA_CDLDRAGONFLYDOJI(startIdx,endIdx,open,high,low,close,&
@@ -1211,16 +1192,14 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLDRAGONFLYDOJI
         integer(kind=c_int) function TA_CDLENGULFING(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLENGULFING")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLENGULFING
         integer(kind=c_int) function TA_CDLEVENINGDOJISTAR(startIdx,endIdx,open,high,low,close,optInPenetration,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLEVENINGDOJISTAR")
@@ -1228,8 +1207,7 @@ module talib
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in),value::optInPenetration
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLEVENINGDOJISTAR
         integer(kind=c_int) function TA_CDLEVENINGSTAR(startIdx,endIdx,open,high,low,close,optInPenetration,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLEVENINGSTAR")
@@ -1237,16 +1215,14 @@ module talib
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in),value::optInPenetration
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLEVENINGSTAR
         integer(kind=c_int) function TA_CDLGAPSIDESIDEWHITE(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLGAPSIDESIDEWHITE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLGAPSIDESIDEWHITE
 
         integer(kind=c_int) function TA_CDLGRAVESTONEDOJI(startIdx,endIdx,open,high,low,close,&
@@ -1254,40 +1230,35 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLGRAVESTONEDOJI
         integer(kind=c_int) function TA_CDLHAMMER(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLHAMMER")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLHAMMER
         integer(kind=c_int) function TA_CDLHANGINGMAN(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLHANGINGMAN")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLHANGINGMAN
         integer(kind=c_int) function TA_CDLHARAMI(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLHARAMI")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLHARAMI
         integer(kind=c_int) function TA_CDLHARAMICROSS(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLHARAMICROSS")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLHARAMICROSS
 
         integer(kind=c_int) function TA_CDLHIGHWAVE(startIdx,endIdx,open,high,low,close,&
@@ -1295,48 +1266,42 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLHIGHWAVE
         integer(kind=c_int) function TA_CDLHIKKAKE(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLHIKKAKE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLHIKKAKE
         integer(kind=c_int) function TA_CDLHIKKAKEMOD(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLHIKKAKEMOD")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLHIKKAKEMOD
         integer(kind=c_int) function TA_CDLHOMINGPIGEON(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLHOMINGPIGEON")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLHOMINGPIGEON
         integer(kind=c_int) function TA_CDLIDENTICAL3CROWS(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLIDENTICAL3CROWS")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLIDENTICAL3CROWS
         integer(kind=c_int) function TA_CDLINNECK(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLINNECK")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLINNECK
 
         integer(kind=c_int) function TA_CDLINVERTEDHAMMER(startIdx,endIdx,open,high,low,close,&
@@ -1344,56 +1309,49 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLINVERTEDHAMMER
         integer(kind=c_int) function TA_CDLKICKING(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLKICKING")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLKICKING
         integer(kind=c_int) function TA_CDLKICKINGBYLENGTH(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLKICKINGBYLENGTH")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLKICKINGBYLENGTH
         integer(kind=c_int) function TA_CDLLADDERBOTTOM(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLLADDERBOTTOM")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLLADDERBOTTOM
         integer(kind=c_int) function TA_CDLLONGLEGGEDDOJI(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLLONGLEGGEDDOJI")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLLONGLEGGEDDOJI
         integer(kind=c_int) function TA_CDLLONGLINE(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLLONGLINE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLLONGLINE
         integer(kind=c_int) function TA_CDLMARUBOZU(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLMARUBOZU")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLMARUBOZU
 
         integer(kind=c_int) function TA_CDLMATCHINGLOW(startIdx,endIdx,open,high,low,close,&
@@ -1401,8 +1359,7 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLMATCHINGLOW
         integer(kind=c_int) function TA_CDLMATHOLD(startIdx,endIdx,open,high,low,close,optInPenetration,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLMATHOLD")
@@ -1410,8 +1367,7 @@ module talib
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in),value::optInPenetration
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLMATHOLD
         integer(kind=c_int) function TA_CDLMORNINGDOJISTAR(startIdx,endIdx,open,high,low,close,optInPenetration,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLMORNINGDOJISTAR")
@@ -1419,8 +1375,7 @@ module talib
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in),value::optInPenetration
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLMORNINGDOJISTAR
         integer(kind=c_int) function TA_CDLMORNINGSTAR(startIdx,endIdx,open,high,low,close,optInPenetration,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLMORNINGSTAR")
@@ -1428,16 +1383,14 @@ module talib
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in),value::optInPenetration
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLMORNINGSTAR
         integer(kind=c_int) function TA_CDLONNECK(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLONNECK")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLONNECK
 
         integer(kind=c_int) function TA_CDLPIERCING(startIdx,endIdx,open,high,low,close,&
@@ -1445,80 +1398,70 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLPIERCING
         integer(kind=c_int) function TA_CDLRICKSHAWMAN(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLRICKSHAWMAN")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLRICKSHAWMAN
         integer(kind=c_int) function TA_CDLRISEFALL3METHODS(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLRISEFALL3METHODS")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLRISEFALL3METHODS
         integer(kind=c_int) function TA_CDLSEPARATINGLINES(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLSEPARATINGLINES")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLSEPARATINGLINES
         integer(kind=c_int) function TA_CDLSHOOTINGSTAR(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLSHOOTINGSTAR")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLSHOOTINGSTAR
         integer(kind=c_int) function TA_CDLSHORTLINE(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLSHORTLINE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLSHORTLINE
         integer(kind=c_int) function TA_CDLSPINNINGTOP(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLSPINNINGTOP")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLSPINNINGTOP
         integer(kind=c_int) function TA_CDLSTALLEDPATTERN(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLSTALLEDPATTERN")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLSTALLEDPATTERN
         integer(kind=c_int) function TA_CDLSTICKSANDWICH(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLSTICKSANDWICH")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLSTICKSANDWICH
         integer(kind=c_int) function TA_CDLTAKURI(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLTAKURI")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLTAKURI
 
         integer(kind=c_int) function TA_CDLTASUKIGAP(startIdx,endIdx,open,high,low,close,&
@@ -1526,48 +1469,42 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLTASUKIGAP
         integer(kind=c_int) function TA_CDLTHRUSTING(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLTHRUSTING")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLTHRUSTING
         integer(kind=c_int) function TA_CDLTRISTAR(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLTRISTAR")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLTRISTAR
         integer(kind=c_int) function TA_CDLUNIQUE3RIVER(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLUNIQUE3RIVER")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLUNIQUE3RIVER
         integer(kind=c_int) function TA_CDLUPSIDEGAP2CROWS(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLUPSIDEGAP2CROWS")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLUPSIDEGAP2CROWS
         integer(kind=c_int) function TA_CDLXSIDEGAP3METHODS(startIdx,endIdx,open,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CDLXSIDEGAP3METHODS")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CDLXSIDEGAP3METHODS
 
 !Group: Statistic Functions
@@ -1577,48 +1514,42 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal0(*),inReal1(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_BETA
         integer(kind=c_int) function TA_CORREL(startIdx,endIdx,inReal0,inReal1,optInTimePeriod,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_CORREL")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal0(*),inReal1(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_CORREL
         integer(kind=c_int) function TA_LINEARREG(startIdx,endIdx,inReal,optInTimePeriod,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_LINEARREG")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_LINEARREG
         integer(kind=c_int) function TA_LINEARREG_ANGLE(startIdx,endIdx,inReal,optInTimePeriod,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_LINEARREG_ANGLE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_LINEARREG_ANGLE
         integer(kind=c_int) function TA_LINEARREG_INTERCEPT(startIdx,endIdx,inReal,optInTimePeriod,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_LINEARREG_INTERCEPT")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_LINEARREG_INTERCEPT
         integer(kind=c_int) function TA_LINEARREG_SLOPE(startIdx,endIdx,inReal,optInTimePeriod,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_LINEARREG_SLOPE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_LINEARREG_SLOPE
         integer(kind=c_int) function TA_STDDEV(startIdx,endIdx,inReal,optInTimePeriod,optInNbDev,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_STDDEV")
@@ -1626,16 +1557,14 @@ module talib
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in),value::optInNbDev
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_STDDEV
         integer(kind=c_int) function TA_TSF(startIdx,endIdx,inReal,optInTimePeriod,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_TSF")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_TSF
         integer(kind=c_int) function TA_VAR(startIdx,endIdx,inReal,optInTimePeriod,optInNbDev,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_VAR")
@@ -1643,8 +1572,7 @@ module talib
             integer(kind=c_int),intent(in),value::startIdx,endIdx,optInTimePeriod
             real(kind=c_double),intent(in),value::optInNbDev
             real(kind=c_double),intent(in)::inReal(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_VAR
 
 !Group: Price Transform
@@ -1654,32 +1582,28 @@ module talib
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::open(*),high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_AVGPRICE
         integer(kind=c_int) function TA_MEDPRICE(startIdx,endIdx,high,low,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_MEDPRICE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::high(*),low(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_MEDPRICE
         integer(kind=c_int) function TA_TYPPRICE(startIdx,endIdx,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_TYPPRICE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_TYPPRICE
         integer(kind=c_int) function TA_WCLPRICE(startIdx,endIdx,high,low,close,&
         outBegIdx,outNbElement,outInteger) result(retCode) bind(C,name="TA_WCLPRICE")
             use iso_c_binding,only:c_int,c_double
             integer(kind=c_int),intent(in),value::startIdx,endIdx
             real(kind=c_double),intent(in)::high(*),low(*),close(*)
-            integer(kind=c_int),intent(out)::outBegIdx,outNbElement
-            integer(kind=c_int),intent(out)::outInteger(*)
+            integer(kind=c_int),intent(out)::outBegIdx,outNbElement,outInteger(*)
         end function TA_WCLPRICE
 
         subroutine C_free(ptr) bind(C,name="free")
