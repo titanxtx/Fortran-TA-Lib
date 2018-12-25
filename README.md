@@ -5,7 +5,7 @@ I have tested this on gfortran-8 only right now. Not every function has been tes
 
 Make sure TA-Lib is installed on your system before using this.
 
-The function names are the same as the ones in the C version of TA-Lib. The constants in C are all functions in Fortran. The constants use the same names in Fortran. The only differences are high is inHigh, inLow is low, inOpen is open, and inClose is close in Fortran.
+The function names are the same as the ones in the C version of TA-Lib. The constants in C are all functions in Fortran. The constants use the same names in Fortran. The only differences are inHigh is high, inLow is low, inOpen is open, and inClose is close in Fortran.
 
 The default parameters for the functions are not automatically entered in since these are bare function calls to the main C functions. You will need to enter in every optional argument.
 
