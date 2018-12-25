@@ -1,7 +1,7 @@
 # Fortran-TA-Lib
 TA-Lib for Fortran
 
-I have tested this on gfortran-8 only right now. Not every function has been tested thoroughly but everything seems to be working correctly on Linux. I haven't tried it on any other platforms.
+I have tested this on gfortran-8 only right now. Not every function has been tested thoroughly but everything seems to be working correctly on Linux. I haven't tried it on any other platforms. Use the latest fortran version. Older versions before 2003 don't support certain features used like binding to C.
 
 Make sure TA-Lib is installed on your system before using this.
 
