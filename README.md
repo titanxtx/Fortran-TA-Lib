@@ -9,8 +9,6 @@ The function names are the same as the ones in the C version of TA-Lib. The cons
 
 The default parameters for the functions are not automatically entered in since these are bare function calls to the main C functions. You will need to enter in every optional argument.
 
-The indexes will not be the same in Fortran as in C as Fortran starts at 1 and C starts at 0. Remember that when dealing with the indexes.
-
 To use the module
 ```
 use talib
